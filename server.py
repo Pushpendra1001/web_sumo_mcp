@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import os
 from openai import OpenAI
+import dotenv
+dotenv.load_dotenv()
 
 mcp = FastMCP(name="DemoServer" , host="0.0.0.0" , port=8050 , )
 
@@ -65,6 +67,40 @@ def summarize_website(url: str, max_words: int = 200) -> str:
     )
 
     return response.choices[0].message.content.strip()
+
+@mcp.tool()
+def answer_from_website_stream(url: str, question: str):
+    yield "🔍 Website scrape ho rahi hai...\n"
+
+    text = scrape_website_text(url)
+
+    if not text or len(text) < 200:
+        yield "❌ Website pe kaafi content nahi mila.\n"
+        return
+
+    yield "🧹 Content clean ho gaya.\n"
+    yield "🤖 AI answer generate kar raha hai...\n"
+
+    response = client.chat.completions.create(
+        model="gemini-2.5-flash",
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "Answer ONLY from the given content. "
+                    "If answer is not present, say so."
+                )
+            },
+            {
+                "role": "user",
+                "content": f"Content:\n{text}\n\nQuestion:\n{question}"
+            }
+        ],
+        temperature=0
+    )
+
+    yield "\n✅ Final Answer:\n"
+    yield response.choices[0].message.content
 
 
 

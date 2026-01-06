@@ -21,13 +21,31 @@ async def main():
             #     "say_hello",
             #     {"name": "Pushpendra"}
             # )
+            # print("Give website URL to scrape text from:")
+            # url = input()
+            # result = await session.call_tool(
+            #     "summarize_website",
+            #     {"url": url}
+            # )
+            # print("Summary:")
+            # print(result.content[0].text)
+           
+            # 1. Call say_hello tool 
+            # result = await session.call_tool(
+            #     "say_hello",
+            #     {"name": "Pushpendra"}  
+            # )
+            # print("Result of say_hello:")
+            # print(result.content[0].text)
+            
+            # 2 Call summarize_website tool
             print("Give website URL to scrape text from:")
             url = input()
             result = await session.call_tool(
                 "summarize_website",
-                {"url": url}
+                {"url": url}  
             )
             print("Summary:")
-            print(result.content[0].text)
+            print(result.content[0].text) 
 
 asyncio.run(main())
