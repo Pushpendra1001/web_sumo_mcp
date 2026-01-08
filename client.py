@@ -8,7 +8,7 @@ async def main():
     #     args=["server.py"]
     # )
 
-    async with sse_client("https://unpent-semiprovincially-kendra.ngrok-free.dev/sse") as (r, w):
+    async with sse_client("http://13.233.90.66:8050/sse") as (r, w):
         async with ClientSession(r, w) as session:
             await session.initialize()
             
