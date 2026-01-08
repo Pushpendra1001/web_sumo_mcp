@@ -1,0 +1,17 @@
+password --> pushpendra
+
+privatekey -- pushpendra
+publickey --  pushpendra
+
+
+jwt --
+secretkey -- unlock/locked
+
+ssh -- 
+privatekey + publickey == unlocked / locked
+
+// tools in mcp
+// resources in mcp  --  RAG -- (containing some custom data)
+// prompt in mcp 
+
+
